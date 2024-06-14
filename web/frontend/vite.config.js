@@ -23,10 +23,9 @@ const proxyOptions = {
 }
 
 // Replace host dynamically based on environment
-// const host = process.env.HOST
-//   ? process.env.HOST.replace(/https?:\/\//, '')
-//   : 'localhost'
-const host = 'shopify.midnightz.cl'
+const host = process.env.HOST
+  ? process.env.HOST.replace(/https?:\/\//, '')
+  : 'localhost'
 
 // Configure HMR settings
 let hmrConfig

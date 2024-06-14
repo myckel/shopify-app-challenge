@@ -5,9 +5,7 @@
   "scripts": {
     "shopify": "shopify",
     "build": "shopify app build",
-    "dev": "concurrently \"npm run dev:rails\" \"npm run dev:sidekiq\"",
-    "dev:rails": "shopify app dev",
-    "dev:sidekiq": "cd web && bundle exec sidekiq",
+    "dev": "shopify app dev",
     "push": "shopify app push",
     "generate": "shopify app generate",
     "deploy": "shopify app deploy",
