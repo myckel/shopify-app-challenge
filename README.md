@@ -64,7 +64,7 @@ This architecture and these key components ensure that the app is robust, scalab
 
 ## Deployment
 
-The app is deployed on [Render.com](https://shopify-app-challenge.onrender.com). The deployment includes a web service and a PostgreSQL database following [Render's Shopify app deployment tutorial](https://docs.render.com/deploy-shopify-app). Note: Sidekiq was not deployed due to free tier limitations.
+The app is deployed on [Render.com](https://shopify-app-challenge.onrender.com). The deployment includes a web service and a PostgreSQL database following [Render's Shopify app deployment tutorial](https://docs.render.com/deploy-shopify-app).
 
 ## Setup and Run Instructions
 
