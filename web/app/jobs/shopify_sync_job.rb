@@ -1,6 +1,6 @@
-class ShopifySyncJob < ApplicationJob
+class ShopifySyncJob
   include Sidekiq::Job
-  queue_as :default
+  sidekiq_options queue: 'default'
 
   def perform
     shop = Shop.first

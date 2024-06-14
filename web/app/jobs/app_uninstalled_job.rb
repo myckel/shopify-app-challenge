@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-class AppUninstalledJob < ActiveJob::Base
+class AppUninstalledJob
+  include Sidekiq::Job
   extend ShopifyAPI::Webhooks::Handler
 
   class << self
