@@ -16,7 +16,7 @@ class SnapshotsController < AuthenticatedController
       product_data: snapshot_params[:product_data]
     )
 
-    if snapshot.save!
+    if snapshot.save
       render json: snapshot, serializer: SnapshotSerializer, status: :created
     else
       render json: snapshot.errors, status: :unprocessable_entity

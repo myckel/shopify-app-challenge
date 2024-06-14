@@ -37,7 +37,6 @@ class SnapshotService
   def fetch_all_product_data
     all_products = []
     products = ShopifyAPI::Product.all(session: @session, limit: 250)
-
     loop do
       all_products.concat(products.map(&:as_json))
       break unless ShopifyAPI::Product.next_page?
@@ -51,10 +50,10 @@ class SnapshotService
     {
       id: product['id'],
       type: 'Product',
-      price: product['variants'][0]['price'],
+      price: product.dig('variants', 0, 'price'),
       title: product['title'],
-      images: product['images'].map { |image| image['src'] },
-      variants: product['variants'].map { |variant| map_variant_data(variant) },
+      images: product['images']&.map { |image| image['src'] } || [],
+      variants: product['variants']&.map { |variant| map_variant_data(variant) } || [],
       description: product['body_html']
     }
   end
