@@ -1,9 +1,8 @@
-# frozen_string_literal: true
+require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
   root to: "home#index"
-
-  require 'sidekiq/web'
   mount Sidekiq::Web => "/sidekiq"
 
   mount ShopifyApp::Engine, at: "/api"

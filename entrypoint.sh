@@ -10,4 +10,7 @@ fi
 bin/rails db:create
 bin/rails db:migrate
 
+# Start Sidekiq in the background
+bundle exec sidekiq &
+
 exec "$@"
