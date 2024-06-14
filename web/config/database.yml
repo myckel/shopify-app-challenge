@@ -18,5 +18,4 @@ test:
 production:
   <<: *default
   database: staytuned_production
-  username: <%= ENV['PG_USERNAME'] %>
-  password: <%= ENV['PG_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
