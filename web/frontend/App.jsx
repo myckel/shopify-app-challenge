@@ -22,6 +22,10 @@ export default function App() {
                 {
                   label: 'Snapshots',
                   destination: '/snapshots'
+                },
+                {
+                  label: 'Local Products',
+                  destination: '/products'
                 }
               ]}
             />

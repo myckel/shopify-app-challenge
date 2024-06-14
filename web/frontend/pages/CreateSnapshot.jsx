@@ -1,4 +1,3 @@
-// src/pages/createSnapshot.jsx
 import React from 'react'
 import CreateSnapshotForm from '../components/CreateSnapshotForm'
 

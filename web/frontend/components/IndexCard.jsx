@@ -42,6 +42,24 @@ const IndexCard = () => {
             </TextContainer>
           </Card>
         </Layout.Section>
+        <Layout.Section oneHalf>
+          <Card
+            title='Local Products'
+            sectioned
+            primaryFooterAction={{
+              content: 'Local Products',
+              onAction: () => navigate('/products')
+            }}
+          >
+            <TextContainer>
+              <p>
+                List of products that are stored locally. These products are not
+                synced with your Shopify store. Is a backup of your products on
+                your Shopify store.
+              </p>
+            </TextContainer>
+          </Card>
+        </Layout.Section>
       </Layout>
     </Page>
   )

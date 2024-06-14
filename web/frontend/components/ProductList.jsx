@@ -1,37 +1,65 @@
-// src/components/ProductList.jsx
 import React, { useEffect, useState } from 'react'
-import { LegacyCard, Layout, TextContainer } from '@shopify/polaris'
-import { useAuthenticatedFetch } from '../hooks'
+import {
+  Card,
+  ResourceList,
+  ResourceItem,
+  TextStyle,
+  Thumbnail
+} from '@shopify/polaris'
 
 const ProductList = () => {
   const [products, setProducts] = useState([])
-  const fetch = useAuthenticatedFetch()
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await fetch('/api/products')
-      const data = await response.json()
-
-      setProducts(data)
+      try {
+        const response = await fetch('/api/products/local')
+        const data = await response.json()
+        setProducts(data)
+      } catch (error) {
+        console.error('Error fetching products:', error)
+      }
     }
 
     fetchProducts()
-  }, [fetch])
+  }, [])
 
   return (
-    <Layout>
-      {products.map((product) => (
-        <Layout.Section key={product.id}>
-          <LegacyCard title={product.title}>
-            <LegacyCard.Section>
-              <TextContainer>
-                <p>{product.body_html}</p>
-              </TextContainer>
-            </LegacyCard.Section>
-          </LegacyCard>
-        </Layout.Section>
-      ))}
-    </Layout>
+    <Card>
+      <ResourceList
+        resourceName={{ singular: 'product', plural: 'products' }}
+        items={products}
+        renderItem={(item) => {
+          const { id, title, image, price, variants } = item
+          const media = image ? (
+            <Thumbnail source={`data:image/jpeg;base64,${image}`} alt={title} />
+          ) : (
+            <Thumbnail source='' alt='No image available' />
+          )
+          return (
+            <ResourceItem
+              id={id}
+              media={media}
+              accessibilityLabel={`View details for ${title}`}
+            >
+              <h3>
+                <TextStyle variation='strong'>{title}</TextStyle>
+              </h3>
+              <div>Price: {price}</div>
+              <div>Variants:</div>
+              <ul>
+                {variants.map((variant) => (
+                  <li key={variant.id}>
+                    Title:{variant.title} - Price: {variant.price}
+                    Inventory: {variant.inventory_quantity}
+                  </li>
+                ))}
+              </ul>
+            </ResourceItem>
+          )
+        }}
+      />
+    </Card>
   )
 }
 

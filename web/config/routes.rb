@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     # POST /api/products and GET /api/products/count
     resources :products, only: [:create, :index] do
       collection do
+        get :local, to: 'local_products#index'
         get :count
       end
     end

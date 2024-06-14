@@ -1,3 +1,4 @@
+require 'open-uri'
 class ShopifySyncService
   def initialize(shop)
     @shop = shop
@@ -32,7 +33,7 @@ class ShopifySyncService
     product.title = shopify_product.title
     product.status = shopify_product.status
     product.description = shopify_product.body_html
-    product.image = shopify_product.images.first&.src
+    product.image = encode_image_to_base64(shopify_product.images.first&.src)
     product.price = shopify_product.variants.first&.price
     product.inventory_level = shopify_product.variants.sum(&:inventory_quantity)
     product.save!
@@ -50,5 +51,17 @@ class ShopifySyncService
     variant.inventory_quantity = shopify_variant.inventory_quantity
     variant.inventory_item_id = shopify_variant.inventory_item_id
     variant.save!
+  end
+
+  def encode_image_to_base64(image_url)
+    return nil if image_url.nil?
+
+    begin
+      image_data = URI.open(image_url).read
+      Base64.encode64(image_data)
+    rescue => e
+      Rails.logger.error "Failed to encode image to Base64: #{e.message}"
+      nil
+    end
   end
 end

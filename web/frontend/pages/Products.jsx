@@ -1,4 +1,3 @@
-// src/pages/ProductsPage.jsx
 import React from 'react'
 import { Page, Layout } from '@shopify/polaris'
 import ProductList from '../components/ProductList'
