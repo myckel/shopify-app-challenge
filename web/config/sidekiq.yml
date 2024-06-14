@@ -1,0 +1,15 @@
+:concurrency: 5
+:queues:
+  - default
+
+:schedule:
+  daily_snapshot:
+    cron: '0 0 * * *' # every day at midnight
+    class: 'SnapshotJob'
+  weekly_snapshot:
+    cron: '0 0 * * 0' # every Sunday at midnight
+    class: 'SnapshotJob'
+  shopify_sync_job:
+    cron: '0 * * * *' # Runs every hour at the beginning of the hour
+    class: 'ShopifySyncJob'
+    queue: default
