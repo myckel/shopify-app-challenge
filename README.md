@@ -1,4 +1,134 @@
-# Shopify App Template - Ruby
+# Shopify App Challenge
+
+## Overview
+
+This is an embedded Shopify app created as part of a challenge. The app provides snapshot functionality for products in a Shopify store. It captures the current state of all products and their variants, and allows for restoring products to the saved state.
+
+## Architecture and Key Components
+
+### Overview of the App’s Architecture and Key Components
+
+The app is designed as an embedded Shopify app, which integrates directly with the Shopify platform to provide additional functionality for Shopify stores. Here’s an overview of its architecture and key components:
+
+#### Architecture
+
+1. **Frontend**:
+
+   - The frontend is built using Shopify Polaris components, ensuring a consistent and user-friendly interface that matches Shopify's design guidelines.
+   - The app is embedded within the Shopify admin panel, providing a seamless user experience without requiring store owners to navigate away from their admin interface.
+
+2. **Backend**:
+
+   - The backend is built using Ruby on Rails, a powerful and flexible framework for web application development.
+   - It uses the Shopify API to interact with store data, such as products, variants, and inventory levels.
+   - Authentication and session management are handled using the Shopify API’s OAuth mechanism to securely interact with the Shopify store’s data.
+
+3. **Database**:
+
+   - PostgreSQL is used as the primary database for storing application data, such as snapshots and user information.
+   - ActiveRecord, the ORM in Rails, is used to manage database interactions, providing an abstraction layer that simplifies database queries and transactions.
+
+4. **Background Jobs**:
+   - Sidekiq is planned to be used for background job processing, allowing resource-intensive tasks like restoring snapshots to be performed asynchronously.
+   - This helps improve the app’s performance and user experience by offloading long-running tasks to background workers.
+
+#### Key Components
+
+1. **Snapshot Service**:
+
+   - This service is responsible for creating and managing snapshots of the store’s products.
+   - It fetches product data from the Shopify API, formats it, and stores it in the database.
+   - Snapshots can be restored, allowing store owners to revert their store’s product data to a previous state.
+
+2. **Authentication and Session Management**:
+
+   - The app uses Shopify’s OAuth mechanism to authenticate users and manage sessions securely.
+   - This ensures that the app can securely access the store’s data and perform actions on behalf of the store owner.
+
+3. **User Interface**:
+
+   - Built with Shopify Polaris, the user interface is designed to be intuitive and easy to use.
+   - It integrates seamlessly with the Shopify admin panel, providing a familiar experience for store owners.
+
+4. **Error Handling and Logging**:
+
+   - The app includes robust error handling to manage exceptions and ensure that errors are logged and reported.
+   - This helps in diagnosing issues and improving the reliability and stability of the app.
+
+5. **Testing**:
+   - The app includes a suite of unit tests to ensure the correctness of its functionality.
+   - Tests are written using RSpec, a popular testing framework for Ruby on Rails applications.
+   - Running `bundle exec rspec` executes the test suite to verify that the app behaves as expected.
+
+This architecture and these key components ensure that the app is robust, scalable, and easy to maintain, providing a valuable tool for Shopify store owners to manage their product data efficiently.
+
+## Deployment
+
+The app is deployed on [Render.com](https://shopify-app-challenge.onrender.com). The deployment includes a web service and a PostgreSQL database following [Render's Shopify app deployment tutorial](https://docs.render.com/deploy-shopify-app). Note: Sidekiq was not deployed due to free tier limitations.
+
+## Setup and Run Instructions
+
+The instructions below are for running the app locally, I take it from the readme of the template created by Shopify.
+
+### Requirements
+
+1. You must [create a Shopify partner account](https://partners.shopify.com/signup) if you don’t have one.
+1. You must create a store for testing if you don't have one, either a [development store](https://help.shopify.com/en/partners/dashboard/development-stores#create-a-development-store) or a [Shopify Plus sandbox store](https://help.shopify.com/en/partners/dashboard/managing-stores/plus-sandbox-store).
+1. You must have [Ruby](https://www.ruby-lang.org/en/) installed.
+1. You must have [Bundler](https://bundler.io/) installed.
+1. You must have [Node.js](https://nodejs.org/) installed.
+
+### Local Development
+
+[The Shopify CLI](https://shopify.dev/docs/apps/tools/cli) connects to an app in your Partners dashboard.
+It provides environment variables, runs commands in parallel, and updates application URLs for easier development.
+
+You can develop locally using your preferred Node.js package manager.
+Run one of the following commands from the root of your app:
+
+Using yarn:
+
+```shell
+yarn dev
+```
+
+Using npm:
+
+```shell
+npm run dev
+```
+
+Using pnpm:
+
+```shell
+pnpm run dev
+```
+
+Open the URL generated in your console. Once you grant permission to the app, you can start development.
+
+### Running Tests
+
+To run the unit tests, execute the following command:
+
+```bash
+bundle exec rspec
+```
+
+## Future Enhancements
+
+- **User and Multi-store Support:** Add functionality to handle multiple users and stores.
+- **Custom Credentials:** Implement custom credential management.
+- **Background Processing:** Move the restoration process to Sidekiq and send email notifications upon completion.
+- **Component Splitting:** Refactor the app to make components more reusable.
+- **Pagination:** Add pagination to all views.
+
+## Known Issues
+
+- **Snapshot Loading Performance:** Loading a snapshot is slow because images are stored as Base64. For better performance, images should be stored on a cloud service, and only the URLs should be saved.
+
+# Original README.md
+
+## Shopify App Template - Ruby
 
 This is a template for building a [Shopify app](https://shopify.dev/docs/apps/getting-started) using Ruby on Rails and React. It contains the basics for building a Shopify app.
 
@@ -22,15 +152,15 @@ The Ruby app template comes with the following out-of-the-box functionality:
 
 These third party tools are complemented by Shopify specific tools to ease app development:
 
-| Tool | Usage |
-|---------|---------|
-| [Shopify App](https://github.com/Shopify/shopify_app) | Rails engine to help build Shopify app using Rails conventions. Helps to install your application on shops, and provides tools for: <li>OAuth</li><li>Session Storage</li><li>Webhook Processing</li><li>etc.</li> |
-| [ShopifyAPI Gem](https://github.com/Shopify/shopify-api-ruby) | A lightweight gem to provide tools for: <br/><li>Obtaining an active session. (`ShopifyApp` uses this behind the scenes to handle OAuth)</li><li>Clients to make request to Shopify GraphQL and Rest APIs. See how it's used [here](#making-your-first-api-call)</li><li>Error handling</li><li>Application Logger</li><li>Webhook Management</li> |
-| [App Bridge](https://shopify.dev/docs/apps/tools/app-bridge), </br>[App Bridge React](https://shopify.dev/docs/apps/tools/app-bridge/getting-started/using-react)| Frontend library that: <li>Add authentication to API requests in the frontend</li><li>Renders components outside of the App’s iFrame in Shopify's Admin page</li> |
-| [Custom React hooks](https://github.com/Shopify/shopify-frontend-template-react/tree/main/hooks) | Custom React hooks that uses App Bridge to make authenticated requests to the Admin API. |
-| [Polaris React](https://polaris.shopify.com/) | A powerful design system and react component library that helps developers build high quality, consistent experiences for Shopify merchants. |
-| [File-based routing](https://github.com/Shopify/shopify-frontend-template-react/blob/main/Routes.jsx) | Tool makes creating new pages easier. |
-| [`@shopify/i18next-shopify`](https://github.com/Shopify/i18next-shopify) | A plugin for [`i18next`](https://www.i18next.com/) that allows translation files to follow the same JSON schema used by Shopify [app extensions](https://shopify.dev/docs/apps/checkout/best-practices/localizing-ui-extensions#how-it-works) and [themes](https://shopify.dev/docs/themes/architecture/locales/storefront-locale-files#usage). |
+| Tool                                                                                                                                                              | Usage                                                                                                                                                                                                                                                                                                                                              |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Shopify App](https://github.com/Shopify/shopify_app)                                                                                                             | Rails engine to help build Shopify app using Rails conventions. Helps to install your application on shops, and provides tools for: <li>OAuth</li><li>Session Storage</li><li>Webhook Processing</li><li>etc.</li>                                                                                                                                 |
+| [ShopifyAPI Gem](https://github.com/Shopify/shopify-api-ruby)                                                                                                     | A lightweight gem to provide tools for: <br/><li>Obtaining an active session. (`ShopifyApp` uses this behind the scenes to handle OAuth)</li><li>Clients to make request to Shopify GraphQL and Rest APIs. See how it's used [here](#making-your-first-api-call)</li><li>Error handling</li><li>Application Logger</li><li>Webhook Management</li> |
+| [App Bridge](https://shopify.dev/docs/apps/tools/app-bridge), </br>[App Bridge React](https://shopify.dev/docs/apps/tools/app-bridge/getting-started/using-react) | Frontend library that: <li>Add authentication to API requests in the frontend</li><li>Renders components outside of the App’s iFrame in Shopify's Admin page</li>                                                                                                                                                                                  |
+| [Custom React hooks](https://github.com/Shopify/shopify-frontend-template-react/tree/main/hooks)                                                                  | Custom React hooks that uses App Bridge to make authenticated requests to the Admin API.                                                                                                                                                                                                                                                           |
+| [Polaris React](https://polaris.shopify.com/)                                                                                                                     | A powerful design system and react component library that helps developers build high quality, consistent experiences for Shopify merchants.                                                                                                                                                                                                       |
+| [File-based routing](https://github.com/Shopify/shopify-frontend-template-react/blob/main/Routes.jsx)                                                             | Tool makes creating new pages easier.                                                                                                                                                                                                                                                                                                              |
+| [`@shopify/i18next-shopify`](https://github.com/Shopify/i18next-shopify)                                                                                          | A plugin for [`i18next`](https://www.i18next.com/) that allows translation files to follow the same JSON schema used by Shopify [app extensions](https://shopify.dev/docs/apps/checkout/best-practices/localizing-ui-extensions#how-it-works) and [themes](https://shopify.dev/docs/themes/architecture/locales/storefront-locale-files#usage).    |
 
 This template combines a number of third party open source tools:
 
@@ -179,17 +309,19 @@ rake build:all
 ```
 
 ### Making your first API call
+
 You can use the [ShopifyAPI](https://github.com/Shopify/shopify-api-ruby) gem to start make authenticated Shopify API calls.
 
-* [Make a GraphQL Admin API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/graphql.md)
-* [Make a GraphQL Storefront API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/graphql_storefront.md)
-* [Make a Rest Admin API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/rest.md)
+- [Make a GraphQL Admin API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/graphql.md)
+- [Make a GraphQL Storefront API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/graphql_storefront.md)
+- [Make a Rest Admin API call](https://github.com/Shopify/shopify-api-ruby/blob/main/docs/usage/rest.md)
 
-Examples from this app template: 
-* Making Admin **GraphQL** API request to create products:
-    * `ProductCreator#create` (web/app/services/product_creator.rb)
-* Making Admin **Rest** API request to count products:
-    * `ProductsController#count` (web/app/controllers/products_controller.rb)
+Examples from this app template:
+
+- Making Admin **GraphQL** API request to create products:
+  - `ProductCreator#create` (web/app/services/product_creator.rb)
+- Making Admin **Rest** API request to count products:
+  - `ProductsController#count` (web/app/controllers/products_controller.rb)
 
 ## Hosting
 
@@ -217,24 +349,24 @@ We fixed this issue with v3.4.0 of the CLI, so after updating it, you can make t
 
    ```js
    const host = process.env.HOST
-     ? process.env.HOST.replace(/https?:\/\//, "")
-     : "localhost";
+     ? process.env.HOST.replace(/https?:\/\//, '')
+     : 'localhost'
 
-   let hmrConfig;
-   if (host === "localhost") {
+   let hmrConfig
+   if (host === 'localhost') {
      hmrConfig = {
-       protocol: "ws",
-       host: "localhost",
+       protocol: 'ws',
+       host: 'localhost',
        port: 64999,
-       clientPort: 64999,
-     };
+       clientPort: 64999
+     }
    } else {
      hmrConfig = {
-       protocol: "wss",
+       protocol: 'wss',
        host: host,
        port: process.env.FRONTEND_PORT,
-       clientPort: 443,
-     };
+       clientPort: 443
+     }
    }
    ```
 
@@ -275,9 +407,10 @@ npm run dev --tunnel-url https://tunnel-url:3000
 pnpm dev --tunnel-url https://tunnel-url:3000
 ```
 
-### I'm seeing "App couldn't be loaded"  error due to browser cookies
+### I'm seeing "App couldn't be loaded" error due to browser cookies
+
 - Ensure you're using the latest [shopify_app](https://github.com/Shopify/shopify_app/blob/main/README.md) gem that uses Session Tokens instead of cookies.
-    - See ["My app is still using cookies to authenticate"](https://github.com/Shopify/shopify_app/blob/main/docs/Troubleshooting.md#my-app-is-still-using-cookies-to-authenticate)
+  - See ["My app is still using cookies to authenticate"](https://github.com/Shopify/shopify_app/blob/main/docs/Troubleshooting.md#my-app-is-still-using-cookies-to-authenticate)
 - Ensure `shopify.app.toml` is present and contains up to date information for the app's redirect URLS. To reset/update this config, run
 
 Using yarn:
