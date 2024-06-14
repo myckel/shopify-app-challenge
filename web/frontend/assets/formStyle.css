@@ -1,0 +1,64 @@
+/* Ensure the container takes full width on smaller screens and centers on larger screens */
+.snapshot-form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Make the form elements responsive */
+.snapshot-form-container .Polaris-Card__Section {
+  padding: 20px;
+}
+
+.snapshot-form-container .Polaris-TextField,
+.snapshot-form-container .Polaris-Button {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.snapshot-form-container .product-checkboxes {
+  display: flex;
+  flex-direction: column;
+}
+
+.snapshot-form-container .product-checkboxes > div {
+  margin-bottom: 10px;
+}
+
+.snapshot-form-container .variant-checkboxes {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Add some basic styling for the product status badges */
+.status-active {
+  background-color: #9bdd9b;
+  border-radius: 3px;
+  padding: 2px 5px;
+  color: white;
+  font-weight: bold;
+}
+
+.status-draft {
+  background-color: #8cb1d7;
+  border-radius: 3px;
+  padding: 2px 5px;
+  color: white;
+  font-weight: bold;
+}
+
+.status-archived {
+  background-color: #d6d6d6;
+  border-radius: 3px;
+  padding: 2px 5px;
+  color: white;
+  font-weight: bold;
+}
+
+/* Ensure the elements are responsive on smaller screens */
+@media (max-width: 768px) {
+  .snapshot-form-container {
+    padding: 10px;
+  }
+}
