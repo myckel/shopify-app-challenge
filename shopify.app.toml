@@ -3,7 +3,7 @@
 client_id = "f7ee73e443d513ca00f681d8e89cf85b"
 name = "staytunedDevSnapshot"
 handle = "staytuneddevsnapshot"
-application_url = "https://shopify.midnightz.cl/"
+application_url = "https://kelly-cellular-ce-hepatitis.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,7 +16,11 @@ include_config_on_deploy = true
 scopes = "read_inventory,read_orders,read_products,write_inventory,write_orders,write_products"
 
 [auth]
-redirect_urls = []
+redirect_urls = [
+  "https://kelly-cellular-ce-hepatitis.trycloudflare.com/auth/callback",
+  "https://kelly-cellular-ce-hepatitis.trycloudflare.com/auth/shopify/callback",
+  "https://kelly-cellular-ce-hepatitis.trycloudflare.com/api/auth/callback"
+]
 
 [webhooks]
 api_version = "2024-04"
