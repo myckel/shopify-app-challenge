@@ -1,0 +1,25 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "f7ee73e443d513ca00f681d8e89cf85b"
+name = "staytunedDevSnapshot"
+handle = "staytuneddevsnapshot"
+application_url = "https://shopify.midnightz.cl/"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "snapshotapp.myshopify.com"
+include_config_on_deploy = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_inventory,read_orders,read_products,write_inventory,write_orders,write_products"
+
+[auth]
+redirect_urls = []
+
+[webhooks]
+api_version = "2024-04"
+
+[pos]
+embedded = true
