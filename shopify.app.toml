@@ -1,14 +1,14 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-client_id = "f7ee73e443d513ca00f681d8e89cf85b"
-name = "staytunedDevSnapshot"
-handle = "staytuneddevsnapshot"
-application_url = "https://kelly-cellular-ce-hepatitis.trycloudflare.com"
+client_id = "63f2275cd76a1e0a28c73fdd048cff26"
+name = "local challenge "
+handle = "local-challenge"
+application_url = "https://flush-researcher-correspondence-simultaneously.trycloudflare.com"
 embedded = true
 
 [build]
-automatically_update_urls_on_dev = true
-dev_store_url = "snapshotapp.myshopify.com"
+automatically_update_urls_on_dev = false
+dev_store_url = "local-challenge-store.myshopify.com"
 include_config_on_deploy = true
 
 [access_scopes]
@@ -17,13 +17,13 @@ scopes = "read_inventory,read_orders,read_products,write_inventory,write_orders,
 
 [auth]
 redirect_urls = [
-  "https://kelly-cellular-ce-hepatitis.trycloudflare.com/auth/callback",
-  "https://kelly-cellular-ce-hepatitis.trycloudflare.com/auth/shopify/callback",
-  "https://kelly-cellular-ce-hepatitis.trycloudflare.com/api/auth/callback"
+  "https://flush-researcher-correspondence-simultaneously.trycloudflare.com/auth/callback",
+  "https://flush-researcher-correspondence-simultaneously.trycloudflare.com/auth/shopify/callback",
+  "https://flush-researcher-correspondence-simultaneously.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
 api_version = "2024-04"
 
 [pos]
-embedded = true
+embedded = false
