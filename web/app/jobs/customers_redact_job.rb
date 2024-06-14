@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-class CustomersRedactJob < ActiveJob::Base
+class CustomersRedactJob
+  include Sidekiq::Job
   extend ShopifyAPI::Webhooks::Handler
 
   class << self
